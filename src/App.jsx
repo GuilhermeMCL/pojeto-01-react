@@ -1,6 +1,6 @@
 import { Header } from "./components/header"
 import { Sidebar } from "./components/sidebar";
-import { Post } from "./components/post";
+import { Post } from "./components/Post";
 
 
 import '../src/global.css';
@@ -26,6 +26,13 @@ export function App() {
             author="Diego Fernandes"
             content="slaoqueescreveraqui"
           />
+
+          <Post
+            author="Diego Fernandes"
+            content="slaoqueescreveraqui"
+          />
+
+
 
 
         </main>
