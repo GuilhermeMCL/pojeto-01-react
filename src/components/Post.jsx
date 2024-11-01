@@ -1,42 +1,55 @@
+
 import { Comment } from './Comment'
 import styles from './Post.module.css'
+import { format, formatDistance, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-export function Post() {
-    return (
+
+
+
+export function Post({author, publishedAt , content }) {
+
+    const  publishedDateFormatted = format(publishedAt , "d 'de' LLLL 'as' HH:mm'h'", {
+        locale:ptBR})
+
+    const publishedDaterelativeTonow = formatDistanceToNow(publishedAt,{
+        locale: ptBR,
+        addSuffix: true,
+
+    })
+        
+    
+return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <img className={styles.avatar} src='https://github.com/GuilhermeMCL.png' />
+                    <img className={styles.avatar} src={author.avatarUrl} />
                     <div className={styles.authorInfo}>
-                        <strong>Guilherme maciel</strong>
-                        <span>Fullstack Developer</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
 
-                <time title='12 de outubro as 08:37' dateTime='2024-10-12 08:36'>Publicado há 1H</time>
+                <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+                    {publishedDaterelativeTonow}
+                </time>
             </header>
 
-            <div  className={styles.content}>
-            <p>Fala galeraa 👋</p>
+            <div className={styles.content}>
+                {content.map(line => {
+                    if(line.type== 'paragraph'){
+                        return <p>{line.content}</p>;
 
-            <p>
-                Acabei de subir mais um projeto no meu portifolio.
-                É um projeto que fiz no formação React, da Rocketseat.
-                O nome do projeto é FeedIgnite 🚀</p>
-
-            <p>👉{'                                   '} <a href='#'>sem link </a></p>
-
-            <p> 
-                <a href=''>#novoprojeto</a>{'   '}
-                <a href=''>#nlw</a>{'  '}
-                <a href=''>#rocketseat</a>{'   '}
-            </p>
+                    } else if (line.type =='link'){
+                        return <p><a href=''>{line.content}</a></p>
+                    }
+                })}
 
             </div>
             <form className={styles.commentForm}>
                 <strong>Deixe seu FeedBack</strong>
                 <textarea
-                placeholder='Deixe um comentario'
+                    placeholder='Deixe um comentario'
 
                 />
                 <footer>
@@ -44,11 +57,11 @@ export function Post() {
                 </footer>
             </form>
 
-        <div className={styles.commentList}>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-        </div>
+            <div className={styles.commentList}>
+                <Comment />
+                <Comment />
+                <Comment />
+            </div>
         </article>
 
 
