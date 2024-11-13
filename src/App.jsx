@@ -1,6 +1,6 @@
-import { Header } from "./components/header"
-import { Sidebar } from "./components/sidebar";
-import { Post } from "./components/Post";
+import { Header } from "./components/header.jsx"
+import { Sidebar } from "./components/sidebar.jsx";
+import { Post } from "./components/Post.jsx";
 
 
 import '../src/global.css';
